@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <script>
+        function validateForm() {
+            let emailField = document.getElementById("email");
+            let email = emailField.value.trim();
+            let errorField = document.getElementById("emailError");
+            errorField.textContent = "";
+            
+            if (email === "") {
+                errorField.textContent = "Email cannot be empty";
+                return false;
+            }
+            
+            if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+                errorField.textContent = "Must be a valid email address (e.g., sample@example.com)";
+                return false;
+            }
+            
+            let parts = email.split("@");
+            if (parts.length !== 2 || parts[0] === "" || parts[1] === "") {
+                errorField.textContent = "Must be a valid email address (e.g., sample@example.com)";
+                return false;
+            }
+            
+            let domainParts = parts[1].split(".");
+            if (domainParts.length < 2 || domainParts.some(part => part === "")) {
+                errorField.textContent = "Must be a valid email address (e.g., sample@example.com)";
+                return false;
+            }
+            
+            return true;
+        }
+
+        function showHint() {
+            let hint = document.getElementById("emailHint");
+            hint.style.display = "inline";
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        <label for="email">Email</label>
+        <br>
+        <input type="text" id="email" name="email">
+        <span onclick="showHint()" style="cursor: pointer; border: 1px solid black; padding: 2px;">ℹ</span>
+        <span id="emailHint" style="display: none;">Hint: sample@example.com</span>
+        <span id="emailError"></span>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

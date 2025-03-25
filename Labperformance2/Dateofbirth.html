@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date of Birth Form</title>
+    <script>
+        function validateForm() {
+            let dd = document.getElementById("dd").value;
+            let mm = document.getElementById("mm").value;
+            let மாசுபாடு = document.getElementById("yyyy").value;
+
+            let ddError = document.getElementById("ddError");
+            let mmError = document.getElementById("mmError");
+            let மாசுபாடுError = document.getElementById("yyyyError");
+
+            ddError.textContent = "";
+            mmError.textContent = "";
+            yyyyError.textContent = "";
+
+            let isValid = true;
+
+            if (dd === "") {
+                ddError.textContent = "Day is required";
+                isValid = false;
+            } else if (isNaN(dd) || parseInt(dd) < 1 || parseInt(dd) > 31) {
+                ddError.textContent = "Invalid day (1-31)";
+                isValid = false;
+            }
+
+            if (mm === "") {
+                mmError.textContent = "Month is required";
+                isValid = false;
+            } else if (isNaN(mm) || parseInt(mm) < 1 || parseInt(mm) > 12) {
+                mmError.textContent = "Invalid month (1-12)";
+                isValid = false;
+            }
+
+            if (yyyy === "") {
+                yyyyError.textContent = "Year is required";
+                isValid = false;
+            } else if (isNaN(yyyy) || parseInt(yyyy) < 1900 || parseInt(yyyy) > 2016) {
+                yyyyError.textContent = "Invalid year (1900-2016)";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        <h2>Date of Birth</h2>
+
+        <label for="dd">dd</label>
+        <input type="text" id="dd" name="dd" maxlength="2" size="2">
+        <span id="ddError" style="color: red;"></span>
+
+        <label for="mm">mm</label>
+        <input type="text" id="mm" name="mm" maxlength="2" size="2">
+        <span id="mmError" style="color: red;"></span>
+
+        <label for="yyyy">yyyy</label>
+        <input type="text" id="yyyy" name="yyyy" maxlength="4" size="4">
+        <span id="yyyyError" style="color: red;"></span><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

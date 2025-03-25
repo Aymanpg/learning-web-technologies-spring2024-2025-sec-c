@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <script>
+        function validateForm() {
+            let genderError = document.getElementById("genderError");
+            let genderOptions = document.getElementsByName("gender");
+            genderError.textContent = "";
+            
+            let genderSelected = false;
+            for (let option of genderOptions) {
+                if (option.checked) {
+                    genderSelected = true;
+                    break;
+                }
+            }
+            
+            if (!genderSelected) {
+                genderError.textContent = "Please select a gender";
+                return false;
+            }
+            
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        <fieldset>
+            <legend>Gender</legend>
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="Other">
+            <label for="other">Other</label>
+        </fieldset>
+        <span id="genderError" style="color: red;"></span>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

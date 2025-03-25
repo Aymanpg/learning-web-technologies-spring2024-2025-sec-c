@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Degree Selection Form</title>
+</head>
+<body>
+
+<form id="degreeForm" onsubmit="return validateForm()">
+  <div style="border: 1px solid #ccc; padding: 20px; width: 200px;">
+    <h2>Degree</h2>
+    <label><input type="checkbox" name="degree" value="SSC"> SSC</label><br>
+    <label><input type="checkbox" name="degree" value="HSC"> HSC</label><br>
+    <label><input type="checkbox" name="degree" value="BSc"> BSc</label><br><br>
+    <span id="degreeError" style="color: red;"></span><br><br>
+  </div>
+  <input type="submit" value="Submit" style="margin-top: 10px;">
+</form>
+
+<script>
+function validateForm() {
+  let checkboxes = document.getElementsByName('degree');
+  let degreeError = document.getElementById('degreeError');
+  let checked = false;
+
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      checked = true;
+      break;
+    }
+  }
+
+  if (!checked) {
+    degreeError.textContent = "Please select at least one degree.";
+    return false;
+  } else {
+    degreeError.textContent = ""; // Clear any previous error message
+    return true;
+  }
+}
+</script>
+
+</body>
+</html>

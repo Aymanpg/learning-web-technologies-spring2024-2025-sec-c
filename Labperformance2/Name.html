@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        .error { color: red; margin-left: 10px; }
+        .form-group { margin-bottom: 10px; display: flex; align-items: center; }
+        .form-group label { min-width: 50px; }
+        .input-container { display: flex; align-items: center; }
+    </style>
+    <script>
+        function validateForm() {
+            let nameField = document.getElementById("name");
+            let name = nameField.value.trim();
+            let errorField = document.getElementById("nameError");
+            errorField.textContent = "";
+            
+            if (name === "") {
+                errorField.textContent = "Name cannot be empty";
+                return false;
+            }
+            
+            if (!/^[a-zA-Z]/.test(name)) {
+                errorField.textContent = "Name must start with a letter";
+                return false;
+            }
+            
+            let words = name.split(" ").filter(word => word !== "");
+            if (words.length < 2) {
+                errorField.textContent = "Name must contain at least two words";
+                return false;
+            }
+            
+            for (let word of words) {
+                if (!word.split('').every(ch => (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch === '.' || ch === '-')) {
+                    errorField.textContent = "Name can only contain letters, dot(.) or dash(-)";
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="name">Name</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="name" name="name">
+            <span id="nameError" class="error"></span>
+        </div>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
