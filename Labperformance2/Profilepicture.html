@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile Picture Upload</title>
+</head>
+<body>
+
+<form id="profileForm" onsubmit="return validateForm()" enctype="multipart/form-data">
+  <div style="border: 1px solid #ccc; padding: 20px; width: 300px;">
+    <h2>Profile Picture</h2>
+
+    <label for="userId">User Id</label><br>
+    <input type="text" id="userId" name="userId" style="width: 280px;"><br><br>
+
+    <label for="picture">Picture</label>
+    <input type="file" id="picture" name="picture" style="display: none;">
+    <button type="button" onclick="document.getElementById('picture').click()">Browse...</button>
+    <label id="file-label">No file selected.</label><br><br>
+    
+    <hr>
+    <label id="error" style="color: red;"></label><br><br>
+  </div>
+  <input type="submit" value="Submit" style="margin-top: 10px;">
+</form>
+
+<script>
+function validateForm() {
+  let userId = document.getElementById("userId").value;
+  let picture = document.getElementById("picture").value;
+  let error = document.getElementById("error");
+
+  if (userId === "") {
+    error.textContent = "User ID cannot be empty.";
+    return false;
+  } else if (isNaN(userId) || parseInt(userId) <= 0) {
+    error.textContent = "User ID must be a positive number.";
+    return false;
+  }
+
+  if (picture === "") {
+    error.textContent = "Please select a picture.";
+    return false;
+  }
+
+  error.textContent = ""; 
+  return true;
+}
+
+document.getElementById('picture').addEventListener('change', function() {
+  let fileName = this.value.split('\\').pop();
+  document.getElementById('file-label').textContent = fileName;
+});
+</script>
+
+</body>
+</html>
